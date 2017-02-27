@@ -1,0 +1,82 @@
+<script type="text/javascript" src="http://www.google.com/jsapi">
+
+</script>
+
+<script type="text/javascript">
+
+  // Load the Google Transliteration API
+
+  google.load("elements", "1", {
+
+        packages: "transliteration"
+
+      });
+
+function WriteToFile()
+{
+	var fso = new ActiveXObject("Scripting.FileSystemObject");
+	var s = fso.CreateTextFile("/home/bidisha/NewFile.txt", true);
+	var text=document.getElementById("language").innerText;
+	s.WriteLine(text);
+	s.WriteLine('***********************');
+	s.Close();
+}
+function textchange()  
+{  
+	alert("Content of Textarea box has changed...");  
+}  
+  function onLoad() {
+
+    var options = {
+
+      sourceLanguage: 'en',
+
+      destinationLanguage: ['hi', 'ml','kn','ta','te'],
+
+      shortcutKey: 'ctrl+m',
+
+      transliterationEnabled: true
+
+    };
+
+
+
+    // Create an instance on TransliterationControl with the required
+
+    // options.
+
+    var control =
+
+        new google.elements.transliteration.TransliterationControl(options);
+
+
+
+    // Enable transliteration in the textfields with the given ids.
+
+    var ids = [ "language" ];
+    //alert("start");
+    control.makeTransliteratable(ids);
+	
+    
+
+    // Show the transliteration control which can be used to toggle between
+
+    // English and Hindi and also choose other destination language.
+
+    //control.showControl('translControl');
+
+    var changedval = document.getElementById("language").innerText;
+    //alert(changedval);    
+  }
+
+  google.setOnLoadCallback(onLoad);
+
+	
+</script>
+
+<form action="postfile.php" method="post">
+<textarea autofocus name="language"  rows="6"  id="language" cols="6" style="width:600px;height:218px"> 
+
+</textarea>
+<input type="submit" value="Submit"></input>
+</form>
