@@ -1,0 +1,10 @@
+( (S (NP-SBJ-1 I)
+     (VP happen
+         (S (NP-SBJ *-1)
+	    (VP to
+                (VP live
+		    (ADVP-LOC (ADVP not too far)
+			      away
+                              (PP-UNF from))))))
+     ,
+     (N_S India)))
