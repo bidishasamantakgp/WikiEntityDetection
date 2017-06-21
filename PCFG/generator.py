@@ -3,24 +3,10 @@ import sys
 import ast
 import Queue
 from collections import defaultdict
-from PCFGParser import *  
 from nltk.grammar import Nonterminal
 from nltk.probability import DictionaryProbDist
 from nltk.draw.tree import draw_trees
-from util import corpus2trees, trees2productions
-#from queue import *
-
-#viterbi_grammar = PCFGViterbiParser.train(open('smalltrain.txt', 'r'), root='ROOT')
-#productions = viterbi_grammar.productions()
-def learnpcfg(content, root):
-	if not isinstance(content, basestring):
-            content = content.read()
-
-        trees = corpus2trees(content)
-        productions = trees2productions(trees)
-        pcfg = nltk.grammar.induce_pcfg(nltk.grammar.Nonterminal(root), productions)
-	#print pcfg.productions()
-	return pcfg
+from util import *
 
 def getNonterminal(variable_file):
 	f = open(variable_file)
@@ -33,7 +19,7 @@ def preprocessing(grammar, listnonterm):
 	#dict_rules = {}
 	prob_dist = defaultdict(DictionaryProbDist)
 	for nonterm in listnonterm:
-		print nonterm
+		#print nonterm
 		#print grammar.productions(Nonterminal('ROOT'))
 		#print grammar.productions(Nonterminal(str(nonterm)))
 		prods = grammar.productions(Nonterminal(str(nonterm)))
@@ -42,9 +28,9 @@ def preprocessing(grammar, listnonterm):
 		for pr in prods:
 			#print pr.rhs()
 			dict_rules[pr.rhs()] = pr.prob()
-		print dict_rules
+		#print dict_rules
 		prob_dist[nonterm] = DictionaryProbDist(dict_rules)
-	print 'test',prob_dist['NP-SBJ'].generate()		
+	#print 'test',prob_dist['NP-SBJ'].generate()		
 	return prob_dist
 
 
@@ -59,30 +45,27 @@ def buildtree(grammar, prob_dist, start):
 	terminals = []
 	#while(not q.empty()):
 	i = 0
+	probability = 1
 	while(len(q)>0):
 		#print i,q
 		(nonterm, parent) = q.pop(i)
 		#i = i+1
-		print nonterm	
+		#print nonterm	
 		prods = grammar.productions(Nonterminal(str(nonterm)))
-		print prods
+		#print prods
 		if(len(prods)>0):
 			#print nonterm, prob_dist[str(nonterm)],prods
 			rule = prob_dist[str(nonterm)].generate()
-                        print rule
-			#for r in rule:
-			#	print 'hi',r
-			#els = ast.literal_eval(rule)
+			if nltk.grammar.is_nonterminal(rule[0]):
+                        	probability *= prob_dist[str(nonterm)].prob(rule)
 			for el in rule:
-				#q.put((el,nonterm))
 				q.append((el,nonterm))
-				#i = i+1	
 		else:
 			leafnodes.append(parent)
 			terminals.append(nonterm)	
 		
-	return (leafnodes,terminals)
-
+	return (leafnodes,terminals, probability)
+'''
 if __name__=="__main__":
 	# filenames 
 	trainfile = sys.argv[1]
@@ -104,7 +87,7 @@ if __name__=="__main__":
 	leafnodes, t = buildtree(viterbi_grammar, prob_dist, list_nonterm[0])
 	print leafnodes	
 	print t
-'''	
+	
 for pr in s_productions:
 	dict_rules[pr.rhs()] = pr.prob()
 	s_probDist = DictionaryProbDist(dict_rules
