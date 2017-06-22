@@ -1,13 +1,23 @@
+import importlib
 import argparse
 import cPickle
 import os
 import ast
+import sys
 from collections import defaultdict
 from translatetransliterate_util import translate, transliterate
-from rnncode import calculateprob as calc
-from rnncode.model import Model as hiModel
-from rnncode.modeleng import Model as engModel
+paths = ['../']
+for p in paths:
+        sys.path.insert(0, p)
 import tensorflow as tf
+char_rnn = importlib.import_module("char-rnn-tensorflow")
+#__import__('../char-rnn-tensorlfow')
+
+#from char_rnn_tensorflow import calculateprob as calc
+#from char_rnn_tensorflow.model import Model as model
+
+#from rnncode.modeleng import Model as engModel
+#import tensorflow as tf
 
 def main():
 
@@ -69,7 +79,7 @@ def parsecorpora(args, dict_rules):
         		eng_saved_args = cPickle.load(f1)
     		with open(os.path.join(args.english_save_dir, 'chars_vocab.pkl'), 'rb') as f1:
         		eng_chars, eng_vocab = cPickle.load(f1)
-    		modeleng = engModel(eng_saved_args, training=False)
+    		modeleng = char_rnn.model.Model(eng_saved_args, training=False)
 
 	else:
 		with open(os.path.join(args.hindi_save_dir, 'config.pkl'), 'rb') as f1:
@@ -77,7 +87,7 @@ def parsecorpora(args, dict_rules):
         	with open(os.path.join(args.hindi_save_dir, 'chars_vocab.pkl'), 'rb') as f1:
                 	hindi_chars, hindi_vocab = cPickle.load(f1)
 
-		modelhindi = hiModel(hindi_saved_args, training=False)
+		modelhindi = char_rnn.model.Model(hindi_saved_args, training=False)
 	
 	for line in f:
 		#englishsegment = ''
