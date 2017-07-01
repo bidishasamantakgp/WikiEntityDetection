@@ -1,0 +1,10 @@
+(S
+  (NP I)
+  (VP
+    (VP (V shot) (NP (Det an) (N elephant)))
+    (PP (P in) (NP (Det my) (N pajamas)))))
+(S
+  (NP I)
+  (VP
+    (V shot)
+    (NP (Det an) (N elephant) (PP (P in) (NP (Det my) (N pajamas))))))
