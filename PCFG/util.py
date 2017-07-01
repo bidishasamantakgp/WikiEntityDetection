@@ -13,6 +13,8 @@ def corpus2trees(text):
  
 		try:
 			t = Tree.fromstring(rp)
+			t.chomsky_normal_form()
+			#trees.append(t.chomsky_normal_form())
 			trees.append(t)
 		except ValueError:
 			logging.error('Malformed parse: "%s"' % rp)
@@ -26,3 +28,9 @@ def trees2productions(trees):
 	for t in trees:
 		productions += t.productions()
 	return productions
+
+def getNonterminal(variable_file):
+        f = open(variable_file)
+        list_nonterm = f.readlines()
+        list_nonterm = [l.strip() for l in list_nonterm]
+        return list_nonterm
