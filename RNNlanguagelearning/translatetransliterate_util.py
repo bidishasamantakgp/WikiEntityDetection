@@ -2,7 +2,6 @@
 #This file will be used to transliterate and translate text using google API
 #Transliteration API
 #http://www.google.com/transliterate?langpair=hi|en&text=""
-
 #Translation API
 #https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=hn&dt=t&q=""
 
@@ -40,7 +39,6 @@ def main():
                         help='store the translated text in a file')
 	parser.add_argument('--output_transliterated', type=str, default='transliterated.txt',
                         help='store the transliterated text in a file')
-
         args = parser.parse_args()
 	process(args)
 

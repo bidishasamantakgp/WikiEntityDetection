@@ -1,22 +1,9 @@
 import sys
 import re
+import argparse 
 import urlparse
 from webscraping import download, xpath
 
-resource = sys.argv[1]
-outputfile = sys.argv[2]
-archive = 'http://web.archive.org'
-f = open(resource, 'r')
-lines = f.readlines()
-f.close()
-
-# name of URL to be crawled
-domain = lines[0].strip()
-
-# timestamp of the snapshots
-snapshots = lines[1:]
-D = download.Download()
-#seen_urls = set()
 
 # get the content of the URL given
 def download_content(outputfile, seen_urls):
@@ -51,16 +38,40 @@ def get_external_URL(page_html):
                seen_urls.add(url)
 	return seen_urls
 
+def parse_arguments():
+	parser = argparse.ArgumentParser(
+                        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+        parser.add_argument('--resource', type=str, default='cricket.txt',
+                        help='data file to store the corpus which needs to be transformed to code mixed')
+        parser.add_argument('--outputfile', type=str, default='segment.txt',
+                        help='output folder genearted by a grammar')
+	args = parser.parse_args()
+	return args
 
-for snapshot in snapshots:
-	#seen_urls = set()
-	print snapshot
-	url_to_be_crawled = snapshot.strip()+'/'+domain
-	#print urlparse.urljoin(snapshot.strip(),domain)
-	page_html = D.archive_get(url_to_be_crawled)
-	#print page_html
-	#print xpath.get(html, '//title')
-	seen_urls = get_external_URL(page_html)
-	outputfile = outputfile + snapshot + '.txt'
-	download_content(outputfile, seen_urls)
+if __name__=="__main__":
+	args = parse_arguments()
+	archive = 'http://web.archive.org'
+	f = open(args.resource, 'r')
+	lines = f.readlines()
+	f.close()
+
+	# name of URL to be crawled
+	domain = lines[0].strip()
+
+	# timestamp of the snapshots
+	snapshots = lines[1:]
+	D = download.Download()
+
+	for snapshot in snapshots:
+		#seen_urls = set()
+		snapshot = snapshot.strip()
+		print snapshot
+		url_to_be_crawled = snapshot.strip()+'/'+domain
+		#print urlparse.urljoin(snapshot.strip(),domain)
+		page_html = D.archive_get(url_to_be_crawled)
+		#print page_html
+		#print xpath.get(html, '//title')
+		seen_urls = get_external_URL(page_html)
+		outputfile = args.outputfile + snapshot + '.txt'
+		download_content(outputfile, seen_urls)
 		
