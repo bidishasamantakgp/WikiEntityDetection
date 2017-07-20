@@ -72,6 +72,8 @@ def getProbability(terminals, lang):
 
 def getTerminalProbability(terminals):
 	p = []
+	(lengthlist, listterminal) = getLength()
+	
 	enProb = getProbability(terminals, 'EN')
 	#hiProb = getProbability(terminals, 'HI')
 	for terminal in terminals: 

@@ -123,10 +123,13 @@ def transliterate(args):
 		data = response.read()
 		if len(data) == 0:
 			return
-        	#print url, translated, data
-        	formatted = ast.literal_eval(data)
-		if len(formatted) > 0:
-        		transliterated += formatted[0]['hws']
+		try:
+        		#print url, translated, data
+        		formatted = ast.literal_eval(data)
+			if len(formatted) > 0:
+        			transliterated += formatted[0]['hws']
+		except:
+			continue
 	return transliterated
 
 def process_new(args):
