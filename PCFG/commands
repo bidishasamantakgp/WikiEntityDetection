@@ -1,0 +1,1 @@
+python chartParser.py --grammar_file data/output.grammar.test --sentence "Virat Kohli later said he had felt  jaise a club  cricketer dusre ko dekh raha hai end belt  ball around  aasani se jabki vah was plodding along" --english_save_dir ../../../save/english/ --hindi_save_dir ../../../save/transliteratedenglishletter/
