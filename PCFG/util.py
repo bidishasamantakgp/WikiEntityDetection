@@ -1,7 +1,6 @@
 from nltk import Tree
 import logging
  
- 
 def corpus2trees(text):
 	""" Parse the corpus and return a list of Trees """
 	rawparses = text.split("\n\n")
@@ -14,7 +13,6 @@ def corpus2trees(text):
 		try:
 			t = Tree.fromstring(rp)
 			t.chomsky_normal_form()
-			#trees.append(t.chomsky_normal_form())
 			trees.append(t)
 		except ValueError:
 			logging.error('Malformed parse: "%s"' % rp)

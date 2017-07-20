@@ -11,9 +11,12 @@ def learnpcfg(content, root):
 
         trees = corpus2trees(content)
         productions = trees2productions(trees)
+	listnonterm = []
         pcfg = nltk.grammar.induce_pcfg(nltk.grammar.Nonterminal(root), productions)
-        #print pcfg.productions()
-        return pcfg
+        for p in pcfg.productions():
+		listnonterm.append(str(p.lhs()))
+        listnonterm = list(set(listnonterm))
+	return (pcfg, listnonterm)
 
 def main():
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
@@ -31,8 +34,8 @@ def generateGrammar(args):
      trainfile = args.data_file
      variablefile = args.symbol_file
      list_nonterm = getNonterminal(variablefile)
-     pcfg_grammar = learnpcfg(open(trainfile, 'r'), root=list_nonterm[0])
-     return pcfg_grammar
+     (pcfg_grammar, listnonterm) = learnpcfg(open(trainfile, 'r'), root='SS')
+     return (pcfg_grammar, listnonterm)
 
 if __name__=="__main__":
      main()

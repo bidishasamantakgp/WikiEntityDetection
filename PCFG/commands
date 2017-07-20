@@ -1,0 +1,1 @@
+python chartParser.py --grammar_file data/output.grammar.test --sentence '50 lakh toilets kaha or kab at least location to public karo people will see n confirm #superbudget #unionbudget2015'
