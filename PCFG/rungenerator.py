@@ -14,21 +14,41 @@ def main():
 
     parser.add_argument('--num_sentence', type=int, default=10,
                         help='number of sentence to generate')
+    parser.add_argument('--nonterm', type=str, default='SS',
+                        help='non terminal whose subtree needs to be generated')
+    parser.add_argument('--action', type=str, default='generate',
+                        help='generate or getlength')
+    parser.add_argument('--length', type=int, default=10,
+                        help='generate the combination less than 10 length')
+
+   
     args = parser.parse_args()
-    pcfg_grammar = generateGrammar(args)
-    generate(args, pcfg_grammar)
+    (pcfg_grammar, listnonterm) = generateGrammar(args)
+    if args.action == 'generate':
+    	generate(args, pcfg_grammar, listnonterm)
+    if args.action == 'getlength':
+	(lengthlist, leafnode) = getLength(args, pcfg_grammar, listnonterm)
+	print lengthlist, leafnode
 
         
-def generate(args, pcfg_grammar):
-	#print pcfg_grammar.productions()
-        list_nonterm = getNonterminal(args.symbol_file)
+def generate(args, pcfg_grammar, list_nonterm):
         prob_dist = preprocessing(pcfg_grammar, list_nonterm)
-        #print prob_dist
 	for i in range(args.num_sentence):
-        	leafnodes, t, probability = buildtree(pcfg_grammar, prob_dist, list_nonterm[0])
-        	#print leafnodes
-        	#print len(t)
+        	leafnodes, t, probability = buildtree(pcfg_grammar, prob_dist, args.nonterm)
 		print len(t), leafnodes, probability
+
+def getLength(args, pcfg_grammar, list_nonterm):
+        prob_dist = preprocessing(pcfg_grammar, list_nonterm)
+        length = []
+	leafnodeslist = []
+	for i in range(args.num_sentence):
+                leafnodes, t, probability = buildtree(pcfg_grammar, prob_dist, args.nonterm)
+                #print leafnodes 
+		if len(t) <= args.length:
+			length.append(len(t))
+			leafnodeslist.append(leafnodes)
+	print leafnodeslist
+	return list(set(length)), leafnodeslist
 
 if __name__=='__main__':
 	main()

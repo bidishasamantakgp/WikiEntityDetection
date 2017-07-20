@@ -113,7 +113,8 @@ def main(args):
         	pchart.LongestChartParser(grammar),
         	pchart.InsideChartParser(grammar, beam_size = len(tokens)+1)
         ]
-	    # Run the parsers on the tokenized sentence.
+	getLength(args, pcfg_grammar, list_nonterm)
+	# Run the parsers on the tokenized sentence.
     	times = []
     	average_p = []
     	num_parses = []
