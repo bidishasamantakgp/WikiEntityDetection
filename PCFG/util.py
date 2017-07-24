@@ -32,3 +32,7 @@ def getNonterminal(variable_file):
         list_nonterm = f.readlines()
         list_nonterm = [l.strip() for l in list_nonterm]
         return list_nonterm
+
+
+
+	

@@ -5,7 +5,7 @@ import Queue
 from collections import defaultdict
 from nltk.grammar import Nonterminal
 from nltk.probability import DictionaryProbDist
-from nltk.draw.tree import draw_trees
+#from nltk.draw.tree import draw_trees
 from util import *
 
 # handle all the probability distribution

@@ -47,7 +47,7 @@ def getLength(args, pcfg_grammar, list_nonterm):
 		if len(t) <= args.length:
 			length.append(len(t))
 			leafnodeslist.append(leafnodes)
-	print leafnodeslist
+	#print leafnodeslist
 	return list(set(length)), leafnodeslist
 
 if __name__=='__main__':
