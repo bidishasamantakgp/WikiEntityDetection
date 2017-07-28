@@ -109,7 +109,7 @@ def getTerminalProbability(args, pcfg_grammar, list_nonterm):
         listProb.extend(probdicten.values())
 	segmentsen = list(set(segmentsen))
 	
-	listProb = sorted(listProb, reverse= True)
+	listProb = sorted(listProb)
 	denom = (len(listProb) * (len(listProb)+1)) / 2
 	prob1 = 0
 	for segment in segmentshi:
