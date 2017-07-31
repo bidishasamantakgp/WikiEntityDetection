@@ -12,6 +12,7 @@ def corpus2trees(text):
  
 		try:
 			t = Tree.fromstring(rp)
+			#print t
 			t.chomsky_normal_form()
 			trees.append(t)
 		except ValueError:

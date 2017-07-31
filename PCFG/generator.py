@@ -34,6 +34,7 @@ def buildtree(grammar, prob_dist, start):
 		prods = grammar.productions(Nonterminal(str(nonterm)))
 		if(len(prods)>0):
 			rule = prob_dist[str(nonterm)].generate()
+			#print 'rule', nonterm, rule
 			if nltk.grammar.is_nonterminal(rule[0]):
                         	probability *= prob_dist[str(nonterm)].prob(rule)
 			for el in rule:

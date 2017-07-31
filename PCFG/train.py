@@ -26,9 +26,9 @@ def main():
                         help='path of the file which stores non-terminals of the grammar one at each line. The first line should contain the root element')
 
     args = parser.parse_args()
-    print generateGrammar(args)
-
-	
+    (grammar, listnonterm) = generateGrammar(args)
+    for prod in grammar.productions():
+	print prod
 
 def generateGrammar(args):
      trainfile = args.data_file

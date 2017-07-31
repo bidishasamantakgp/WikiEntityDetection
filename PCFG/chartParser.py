@@ -51,7 +51,8 @@ def getModel(args, lang, segments=[]):
 	#return (model, chars, vocab)
 
 def getProbability(segments, model, chars, vocab, lang, args):
-        probDict = defaultdict()
+        print 'Lang', lang
+	probDict = defaultdict()
 	with tf.Session() as sess:
         	tf.global_variables_initializer().run()
                 saver = tf.train.Saver([v for v in tf.all_variables() if lang in v.name])
@@ -189,7 +190,7 @@ def main(args):
 			else:
 				rhsstr += str(r)+' '
                 strgrammar += str(p.lhs())+ ' -> '+ rhsstr +' ['+ '{0:.8f}'.format(p.prob())+']\n'
-	print strgrammar
+	#print strgrammar
 	
 	grammar = PCFG.fromstring(strgrammar.split('\n'))
 	#'''

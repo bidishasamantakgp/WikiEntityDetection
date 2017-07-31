@@ -1,5 +1,14 @@
 <<<<<<< HEAD
+python chartParser.py --grammar_file data/output.grammar.ex2 --sentence "savaal the when Yuvraj was called janavaree mein inglaind shrrnkhala ke lie" --english_save_dir ../../../save/englishNew/ --hindi_save_dir ../../../save/transliteratedenglishletter/newspaper_monohindi/
+
+python chartParser.py --grammar_file data/output.grammar.cnf --sentence "savaal the when Yuvraj was called janavaree mein inglaind shrrnkhala ke lie" --english_save_dir ../../../save/englishNew/ --hindi_save_dir ../../../save/transliteratedenglishletter/newspaper_monohindi/ > data/output.grammar.ex2
+
+
+
 python chartParser.py --grammar_file data/output.grammar.test --sentence "Virat Kohli later said he had felt  jaise a club  cricketer dusre ko dekh raha hai end belt  ball around  aasani se jabki vah was plodding along" --english_save_dir ../../../save/english/ --hindi_save_dir ../../../save/transliteratedenglishletter/
 =======
 python chartParser.py --grammar_file data/output.grammar.test --sentence '50 lakh toilets kaha or kab at least location to public karo people will see n confirm #superbudget #unionbudget2015'
+ python chartParser.py --grammar_file data/output.grammar.cnf --english_save_dir ../../../save/englishNew/ --hindi_save_dir ../../../save/transliteratedenglishletter/newspaper_monohindi/ --sentence "virat kohli later said he had felt jaise a club cricketer dusre ko dekh raha hai end belt ball around aasani se jabki vah was plodding along"
+
 >>>>>>> 1df6609079a7536655c8c8c019f35ad41ab42bc9
+Inside en
