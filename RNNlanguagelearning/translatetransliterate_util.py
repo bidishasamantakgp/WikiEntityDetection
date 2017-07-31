@@ -61,14 +61,20 @@ def translate(args):
         #response = urllib2.urlopen(request)
 	request = ''
         response = ''
-        try:
-                request=urllib2.Request(url,None,headers)
-                response = urllib2.urlopen(request)
-        except:
-                print 'sleeping'
-                time.sleep(60)
-                request=urllib2.Request(url,None,headers)
-                response = urllib2.urlopen(request)
+        i = 0
+	while i<5 :
+		try:
+                	request=urllib2.Request(url,None,headers)
+                	response = urllib2.urlopen(request)
+			if i < 5:
+				i = 5
+        	except:
+                	print 'sleeping'
+                	time.sleep(30)
+			i = i + 1
+			continue
+                #request=urllib2.Request(url,None,headers)
+                #response = urllib2.urlopen(request)
 
         data = response.read()
         new_data = re.sub('null','""',data)
